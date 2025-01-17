@@ -1,0 +1,320 @@
+/* Tailwind directives */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Custom CSS Variables */
+:root {
+  --mode: light;
+}
+
+/* Base styles */
+:root {
+  --background: 0 0% 100%;
+  --foreground: 0 0% 0%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 0%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 0%;
+  --primary: 240 100% 50%;  /* Vibrant blue */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 280 100% 50%; /* Vibrant purple */
+  --secondary-foreground: 0 0% 100%;
+  --muted: 240 10% 96%;
+  --muted-foreground: 240 5% 45%;
+  --accent: 160 100% 50%; /* Vibrant green */
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 100% 50%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 240 10% 90%;
+  --input: 240 10% 90%;
+  --ring: 240 100% 50%;
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: 240 10% 10%;
+  --foreground: 0 0% 100%;
+  --card: 240 10% 15%;
+  --card-foreground: 0 0% 100%;
+  --popover: 240 10% 15%;
+  --popover-foreground: 0 0% 100%;
+  --primary: 240 100% 60%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 280 100% 60%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 240 10% 20%;
+  --muted-foreground: 240 5% 70%;
+  --accent: 160 100% 60%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 100% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 240 10% 20%;
+  --input: 240 10% 20%;
+  --ring: 240 100% 60%;
+}
+
+/* Element styles */
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+h1 {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, 
+    hsl(var(--primary)), 
+    hsl(var(--secondary)), 
+    hsl(var(--accent))
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@media (min-width: 768px) {
+  h1 {
+    font-size: 3rem;
+    line-height: 1;
+  }
+}
+
+h2 {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+  color: hsl(var(--primary));
+}
+
+@media (min-width: 768px) {
+  h2 {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+}
+
+h3 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 600;
+  color: hsl(var(--secondary));
+}
+
+@media (min-width: 768px) {
+  h3 {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+}
+
+/* Custom classes */
+.gradient-bg {
+  background: linear-gradient(135deg, 
+    hsl(var(--primary)) 0%, 
+    hsl(var(--secondary)) 50%, 
+    hsl(var(--accent)) 100%
+  );
+}
+
+.card-hover {
+  transition: all 0.3s ease;
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  position: relative;
+  overflow: hidden;
+}
+
+.card-hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    hsl(var(--primary) / 0.1),
+    hsl(var(--secondary) / 0.1),
+    hsl(var(--accent) / 0.1)
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 12px 24px -8px hsl(var(--primary) / 0.2),
+    0 8px 16px -6px hsl(var(--secondary) / 0.2);
+  border-color: hsl(var(--primary) / 0.5);
+}
+
+.card-hover:hover::before {
+  opacity: 1;
+}
+
+.card-hover h3,
+.card-hover .text-gradient {
+  position: relative;
+  z-index: 1;
+}
+
+.card-hover p,
+.card-hover li {
+  position: relative;
+  z-index: 1;
+  color: hsl(var(--foreground));
+}
+
+.card-hover ul {
+  margin-top: 1rem;
+}
+
+.card-hover li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid hsl(var(--border) / 0.5);
+}
+
+.card-hover li:last-child {
+  border-bottom: none;
+}
+
+.card-hover li svg {
+  flex-shrink: 0;
+}
+
+.card-hover blockquote {
+  position: relative;
+  z-index: 1;
+  background: hsl(var(--muted) / 0.3);
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  margin: 1rem 0;
+}
+
+.card-hover blockquote footer {
+  margin-top: 0.75rem;
+  font-weight: 500;
+}
+
+.card-hover .badge {
+  position: relative;
+  z-index: 1;
+  background: hsl(var(--primary) / 0.1);
+  color: hsl(var(--primary));
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-weight: 500;
+}
+
+.card-hover .stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.card-hover .stat-item {
+  text-align: center;
+  padding: 1rem;
+  background: hsl(var(--muted) / 0.2);
+  border-radius: var(--radius);
+}
+
+.gradient-border {
+  position: relative;
+  background: hsl(var(--background));
+  border: 2px solid transparent;
+  border-radius: var(--radius);
+  background-clip: padding-box;
+}
+
+.gradient-border::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  bottom: -2px;
+  left: -2px;
+  background: linear-gradient(
+    135deg,
+    hsl(var(--primary)),
+    hsl(var(--secondary)),
+    hsl(var(--accent))
+  );
+  border-radius: inherit;
+  z-index: -1;
+}
+
+.card-hover .card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  background: linear-gradient(
+    135deg,
+    hsl(var(--primary)),
+    hsl(var(--secondary))
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, 
+    hsl(var(--primary)) 0%, 
+    hsl(var(--secondary)) 50%, 
+    hsl(var(--accent)) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* Custom utility classes */
+.text-shadow {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+@layer base {
+  :root {
+    --brand: 210 100% 50%;
+    --brand-foreground: 213 100% 60%;
+  }
+  .dark {
+    --brand: 213 100% 60%;
+    --brand-foreground: 210 100% 50%;
+  }
+}
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
