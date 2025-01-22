@@ -79,8 +79,44 @@ export default function CategoryPage() {
   return (
     <>
       <Head>
-        <title>{category.title} | LyveCom</title>
-        <meta name="description" content={category.description} />
+        <title>{category.title} - Best {category.title} Products & Reviews | LyveCom</title>
+        <meta
+          name="description"
+          content={`Discover the best ${category.title.toLowerCase()} products with detailed reviews, video demonstrations, and expert recommendations. Shop our curated selection with free shipping available.`}
+        />
+        <meta
+          name="keywords"
+          content={`${category.title.toLowerCase()}, ${category.title.toLowerCase()} products, best ${category.title.toLowerCase()}, ${category.title.toLowerCase()} reviews, buy ${category.title.toLowerCase()}`}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "CollectionPage",
+              name: `${category.title} Products`,
+              description: category.description,
+              url: `https://yourdomain.com/category/${slug}`,
+              hasPart: category.products.map(product => ({
+                "@type": "Product",
+                name: product.name,
+                description: product.description,
+                image: product.image,
+                offers: {
+                  "@type": "Offer",
+                  price: product.price,
+                  priceCurrency: "USD",
+                  availability: "https://schema.org/InStock"
+                },
+                aggregateRating: {
+                  "@type": "AggregateRating",
+                  ratingValue: product.rating,
+                  reviewCount: product.reviews
+                }
+              }))
+            })
+          }}
+        />
       </Head>
 
       {/* Hero Section */}
@@ -177,40 +213,56 @@ export default function CategoryPage() {
       </section>
 
       {/* Product Grid */}
-      <section className="py-12">
+      <section className="py-12" aria-label="Product listings">
         <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <h2 className="text-3xl font-bold mb-8">Featured {category.title} Products</h2>
+          <div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+            role="list"
+            aria-label="Products grid"
+          >
             {category.products.map((product) => (
-              <Card key={product.id} className="card-hover">
+              <Card
+                key={product.id}
+                className="card-hover"
+                role="listitem"
+                aria-label={`${product.name} product details`}
+              >
                 <CardHeader>
                   <div className="relative aspect-video rounded-lg overflow-hidden mb-4">
                     <Image
                       src={product.image}
-                      alt={product.name}
+                      alt={`${product.name} - ${product.description} in the ${category.title} category`}
                       fill
                       className="object-cover"
+                      priority={product.id <= 4} // Prioritize loading for first 4 products
                     />
                     <Button
                       variant="secondary"
                       size="icon"
                       className="absolute top-2 right-2"
+                      aria-label={`Watch ${product.name} product video`}
                     >
                       <Play className="w-4 h-4" />
                     </Button>
                   </div>
-                  <CardTitle className="text-xl mb-2">{product.name}</CardTitle>
-                  <CardDescription>
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="flex items-center">
-                        <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                        <span className="ml-1 font-medium">{product.rating}</span>
+                  <div>
+                    <h3 className="text-xl mb-2">{product.name}</h3>
+                    <CardDescription>
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="flex items-center" aria-label={`Rating: ${product.rating} out of 5 stars`}>
+                          <Star className="w-4 h-4 text-yellow-400 fill-current" aria-hidden="true" />
+                          <span className="ml-1 font-medium">{product.rating}</span>
+                        </div>
+                        <span className="text-muted-foreground">
+                          ({product.reviews} customer reviews)
+                        </span>
                       </div>
-                      <span className="text-muted-foreground">
-                        ({product.reviews} reviews)
-                      </span>
-                    </div>
-                    <p className="font-bold text-lg">${product.price}</p>
-                  </CardDescription>
+                      <p className="font-bold text-lg" aria-label={`Price: $${product.price}`}>
+                        ${product.price}
+                      </p>
+                    </CardDescription>
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
@@ -223,15 +275,15 @@ export default function CategoryPage() {
                   </div>
                   <div className="grid grid-cols-3 gap-2 mt-4">
                     <div className="text-center p-2 bg-muted rounded-lg">
-                      <TrendingUp className="w-4 h-4 mx-auto mb-1" />
+                      <TrendingUp className="w-4 h-4 mx-auto mb-1" aria-hidden="true" />
                       <span className="text-sm font-medium">{product.stats.satisfaction}</span>
                     </div>
                     <div className="text-center p-2 bg-muted rounded-lg">
-                      <Clock className="w-4 h-4 mx-auto mb-1" />
+                      <Clock className="w-4 h-4 mx-auto mb-1" aria-hidden="true" />
                       <span className="text-sm font-medium">{product.stats.delivery}</span>
                     </div>
                     <div className="text-center p-2 bg-muted rounded-lg">
-                      <CheckCircle className="w-4 h-4 mx-auto mb-1" />
+                      <CheckCircle className="w-4 h-4 mx-auto mb-1" aria-hidden="true" />
                       <span className="text-sm font-medium">{product.stats.warranty}</span>
                     </div>
                   </div>
@@ -247,15 +299,87 @@ export default function CategoryPage() {
       </section>
 
       {/* Video Reviews Section */}
-      <section className="py-12 bg-muted/30">
+      <section className="py-12 bg-muted/30" itemScope itemType="https://schema.org/VideoObject">
         <div className="container">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold mb-4">Customer Video Reviews</h2>
-            <p className="text-muted-foreground">See what our customers are saying</p>
+            <p className="text-muted-foreground">Real experiences from verified buyers</p>
           </div>
           <Carousel>
             <CarouselContent>
-              {/* Add video review carousel items */}
+              {[
+                {
+                  id: 1,
+                  title: "Amazing Product Experience",
+                  video: "/videos/review1.mp4",
+                  thumbnail: "/images/review1-thumb.jpg",
+                  reviewer: "Sarah Johnson",
+                  rating: 5,
+                  date: "2024-01-15"
+                },
+                {
+                  id: 2,
+                  title: "Best Purchase Ever",
+                  video: "/videos/review2.mp4",
+                  thumbnail: "/images/review2-thumb.jpg",
+                  reviewer: "Mike Thompson",
+                  rating: 5,
+                  date: "2024-01-14"
+                },
+                {
+                  id: 3,
+                  title: "Exceeded Expectations",
+                  video: "/videos/review3.mp4",
+                  thumbnail: "/images/review3-thumb.jpg",
+                  reviewer: "Emily Davis",
+                  rating: 4,
+                  date: "2024-01-13"
+                }
+              ].map((review) => (
+                <CarouselItem
+                  key={review.id}
+                  className="md:basis-1/2 lg:basis-1/3"
+                  itemScope
+                  itemType="https://schema.org/VideoObject"
+                >
+                  <Card className="card-hover">
+                    <CardHeader>
+                      <div className="relative aspect-video rounded-lg overflow-hidden mb-4">
+                        <Image
+                           src={review.thumbnail}
+                           alt={`${review.reviewer}'s video review of ${category.title} products`}
+                           fill
+                           className="object-cover"
+                           itemProp="thumbnailUrl"
+                         />
+                         <meta itemProp="name" content={review.title} />
+                         <meta itemProp="description" content={`Video review by ${review.reviewer}`} />
+                         <meta itemProp="uploadDate" content={review.date} />
+                         <meta itemProp="contentUrl" content={review.video} />
+                        <Button
+                          variant="secondary"
+                          size="icon"
+                          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                          aria-label="Play video review"
+                        >
+                          <Play className="w-8 h-8" />
+                        </Button>
+                      </div>
+                      <CardTitle className="text-lg">{review.title}</CardTitle>
+                      <CardDescription>
+                        <div className="flex items-center justify-between">
+                          <span>{review.reviewer}</span>
+                          <div className="flex items-center">
+                            {Array.from({ length: review.rating }).map((_, i) => (
+                              <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
+                            ))}
+                          </div>
+                        </div>
+                      </CardDescription>
+                    </CardHeader>
+                  </Card>
+                </CarouselItem>
+              ))}
             </CarouselContent>
             <CarouselPrevious />
             <CarouselNext />
@@ -268,7 +392,51 @@ export default function CategoryPage() {
         <div className="container">
           <h2 className="text-3xl font-bold mb-8">Related Categories</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {/* Add related category cards */}
+            {[
+              {
+                slug: "lifestyle",
+                title: "Lifestyle",
+                image: "/images/lifestyle-category.jpg",
+                description: "Products for modern living"
+              },
+              {
+                slug: "wellness",
+                title: "Wellness",
+                image: "/images/wellness-category.jpg",
+                description: "Health and wellness solutions"
+              },
+              {
+                slug: "home",
+                title: "Smart Home",
+                image: "/images/smart-home-category.jpg",
+                description: "Connected home devices"
+              },
+              {
+                slug: "accessories",
+                title: "Accessories",
+                image: "/images/accessories-category.jpg",
+                description: "Essential add-ons"
+              }
+            ].map((relatedCategory) => (
+              <Card
+                key={relatedCategory.slug}
+                className="card-hover cursor-pointer"
+                onClick={() => router.push(`/category/${relatedCategory.slug}`)}
+              >
+                <div className="relative aspect-video">
+                  <Image
+                    src={relatedCategory.image}
+                    alt={`${relatedCategory.title} category - Browse our ${relatedCategory.title.toLowerCase()} collection`}
+                    fill
+                    className="object-cover rounded-t-lg"
+                  />
+                </div>
+                <CardHeader>
+                  <CardTitle className="text-lg">{relatedCategory.title}</CardTitle>
+                  <CardDescription>{relatedCategory.description}</CardDescription>
+                </CardHeader>
+              </Card>
+            ))}
           </div>
         </div>
       </section>

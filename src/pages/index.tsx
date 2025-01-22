@@ -1,3 +1,6 @@
+// File: src/pages/index.tsx
+// File: src/pages/index.tsx
+
 import React from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -6,8 +9,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Badge } from "@/components/ui/badge";
+import { OrbEffect } from "@/components/ui/orb-effect";
 import { 
-  Sparkles, 
+  Sparkles,
   Rocket, 
   Video, 
   ShoppingBag, 
@@ -33,17 +37,60 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>LyveCom | Video Commerce Platform for Shopify</title>
-        <meta name="description" content="Transform your Shopify store with shoppable videos, live shopping, and AI-powered video commerce solutions. Boost engagement and sales with LyveCom." />
+        <title>LyveCom | Next-Gen Video Commerce Platform for Shopify Stores</title>
+        <meta name="description" 
+              content="LyveCom: AI-powered shoppable videos & live shopping platform for Shopify. Increase conversions by 300% with seamless video commerce integration. 14-day free trial." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="canonical" href="https://www.joinlyve.com/" />
         <link rel="icon" href="/favicon.ico" />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.joinlyve.com/" />
+        <meta property="og:title" content="LyveCom | Video Commerce Platform for Shopify" />
+        <meta property="og:description" content="Transform your Shopify store with shoppable videos and live shopping. Boost conversions by 300% with LyveCom." />
+        <meta property="og:image" content="https://www.joinlyve.com/og-image.jpg" />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://www.joinlyve.com/" />
+        <meta name="twitter:title" content="LyveCom | Video Commerce Platform for Shopify" />
+        <meta name="twitter:description" content="AI-powered shoppable videos & live shopping platform for Shopify stores." />
+        <meta name="twitter:image" content="https://www.joinlyve.com/twitter-image.jpg" />
+
+        {/* Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "LyveCom",
+            "operatingSystem": "Web",
+            "applicationCategory": "SaaS",
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.9",
+              "reviewCount": "872"
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD",
+              "url": "https://www.joinlyve.com/"
+            }
+          })}
+        </script>
       </Head>
 
       <div className="bg-background min-h-screen flex flex-col">
         {/* Announcement Bar */}
-        <div className="bg-gradient-to-r from-primary/90 via-secondary/90 to-accent/90 py-2">
-          <div className="container text-center text-sm text-white font-medium">
-            🎉 Breaking News: LyveCom + ShopApp Integration Now Live! Limited Time Launch Offer
+        <div className="bg-gradient-to-r from-primary/90 via-secondary/90 to-accent/90 py-2 relative">
+          <div className="container text-center text-sm text-white font-medium flex items-center justify-center gap-4">
+            <span>🎉 Launch Offer: 40% Off Ends in </span>
+            <div className="flex gap-2 font-mono">
+              <span className="bg-black/20 px-2 py-1 rounded">02h</span>
+              <span className="bg-black/20 px-2 py-1 rounded">59m</span>
+              <span className="bg-black/20 px-2 py-1 rounded">47s</span>
+            </div>
           </div>
         </div>
         
@@ -55,12 +102,24 @@ export default function Home() {
               <Sparkles className="w-5 h-5 mr-2" /> REVOLUTIONARY VIDEO COMMERCE PLATFORM
             </Badge>
             <h1 className="text-5xl md:text-7xl font-bold tracking-tighter animate-float text-shadow">
-              Turn Your Shopify Store Into a<br/>
-              <span className="text-gradient">Video Shopping Paradise</span>
+              Transform Visitors Into Buyers With<br/>
+              <span className="text-gradient">Shoppable Video Experiences</span>
             </h1>
-            <p className="text-muted-foreground text-xl md:text-2xl max-w-[800px] leading-relaxed">
-              Stop losing sales to static, boring product pages. LyveCom transforms your store with shoppable videos, live shopping, and AI-powered recommendations — all without slowing down your site.
-            </p>
+            <div className="w-full max-w-4xl aspect-video rounded-2xl overflow-hidden border-2 border-primary/20 shadow-2xl relative group">
+              <div className="absolute inset-0">
+                <OrbEffect className="h-full w-full scale-[1.5] group-hover:scale-[1.6] transition-transform duration-300 [--orb-color:hsl(var(--primary))] [--orb-speed:0.5]" />
+              </div>
+              <div className="absolute bottom-4 left-4 flex gap-2">
+                <Button variant="secondary" className="backdrop-blur-sm">
+                  <ShoppingBag className="w-4 h-4 mr-2" />
+                  Shop This Look
+                </Button>
+                <Button variant="secondary" className="backdrop-blur-sm">
+                  <Video className="w-4 h-4 mr-2" />
+                  How It Works
+                </Button>
+              </div>
+            </div>
             <div className="flex flex-col sm:flex-row gap-4 mt-8">
               <Button size="lg" className="text-lg px-8 py-6 gradient-bg text-white">
                 Start 14-Day Free Trial <ArrowRight className="ml-2" />

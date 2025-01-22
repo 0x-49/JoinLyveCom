@@ -58,6 +58,16 @@ const resources = [
 ];
 
 export default function Header() {
+  // SEO: Add structured data for organization
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "LyveCom",
+    "url": "https://joinlyve.com",
+    "logo": "https://joinlyve.com/images/black_logo.png",
+    "description": "Next-generation video commerce platform transforming content into shoppable experiences"
+  };
+
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const router = useRouter();
@@ -72,14 +82,26 @@ export default function Header() {
   }, []);
 
   return (
-    <header className={`fixed w-full z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-background/80 backdrop-blur-md shadow-sm' : 'bg-transparent'
-    }`}>
+    <header 
+      aria-label="Main website header"
+      className={`fixed w-full z-50 transition-all duration-300 ${
+        isScrolled ? 'bg-background/80 backdrop-blur-md shadow-sm' : 'bg-transparent'
+      }`}
+    >
+      {/* Structured data for SEO */}
+      <script type="application/ld+json">
+        {JSON.stringify(structuredData)}
+      </script>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
+          <Link 
+            href="/" 
+            className="flex items-center space-x-2"
+            aria-label="Homepage"
+          >
             <Logo />
+            <span className="sr-only">LyveCom Home</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -141,8 +163,18 @@ export default function Header() {
             </NavigationMenu>
 
             <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="sm" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
-                {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+                className="hover:bg-accent/90 focus:ring-2 focus:ring-primary"
+              >
+                {theme === 'dark' ? (
+                  <Sun className="h-5 w-5 text-foreground/90" />
+                ) : (
+                  <Moon className="h-5 w-5 text-foreground/90" />
+                )}
               </Button>
               <Button variant="ghost" asChild>
                 <Link href="/login">Sign In</Link>
@@ -154,11 +186,28 @@ export default function Header() {
           </div>
 
           {/* Mobile Navigation */}
+          {/* Mobile Navigation Toggle */}
           <div className="md:hidden flex items-center space-x-4">
-            <Button variant="ghost" size="sm" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
-              {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+              className="hover:bg-accent/90 focus:ring-2 focus:ring-primary"
+            >
+              {theme === 'dark' ? (
+                <Sun className="h-5 w-5 text-foreground/90" />
+              ) : (
+                <Moon className="h-5 w-5 text-foreground/90" />
+              )}
             </Button>
-            <Button variant="ghost" size="icon" onClick={() => setIsOpen(!isOpen)}>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label={isOpen ? "Close menu" : "Open menu"}
+              className="hover:bg-accent/90 focus:ring-2 focus:ring-primary"
+            >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
           </div>
@@ -170,12 +219,29 @@ export default function Header() {
             <nav className="flex flex-col space-y-4">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="w-full justify-start">Solutions</Button>
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-start h-14 px-6 hover:bg-accent/90 focus:ring-2 focus:ring-primary text-base"
+                      aria-haspopup="true"
+                      aria-expanded={isOpen}
+                    >
+                    Solutions
+                  </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent>
+                <DropdownMenuContent className="w-full">
                   {solutions.map((item) => (
-                    <DropdownMenuItem key={item.title} asChild>
-                      <Link href={item.href}>{item.title}</Link>
+                    <DropdownMenuItem 
+                      key={item.title} 
+                      asChild
+                      className="focus:bg-accent/90 focus:ring-2 focus:ring-primary"
+                    >
+                      <Link 
+                        href={item.href}
+                        className="w-full p-2"
+                        aria-label={`Learn about ${item.title}`}
+                      >
+                        {item.title}
+                      </Link>
                     </DropdownMenuItem>
                   ))}
                 </DropdownMenuContent>
@@ -183,12 +249,27 @@ export default function Header() {
 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="w-full justify-start">Resources</Button>
+                  <Button 
+                    variant="ghost" 
+                    className="w-full justify-start hover:bg-accent/90 focus:ring-2 focus:ring-primary"
+                  >
+                    Resources
+                  </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent>
+                <DropdownMenuContent className="w-full">
                   {resources.map((item) => (
-                    <DropdownMenuItem key={item.title} asChild>
-                      <Link href={item.href}>{item.title}</Link>
+                    <DropdownMenuItem 
+                      key={item.title} 
+                      asChild
+                      className="focus:bg-accent/90 focus:ring-2 focus:ring-primary"
+                    >
+                      <Link 
+                        href={item.href}
+                        className="w-full p-2"
+                        aria-label={`Access ${item.title}`}
+                      >
+                        {item.title}
+                      </Link>
                     </DropdownMenuItem>
                   ))}
                 </DropdownMenuContent>

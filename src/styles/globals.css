@@ -6,6 +6,12 @@
 /* Custom CSS Variables */
 :root {
   --mode: light;
+  /* Typography scale using CSS variables */
+  --step--2: clamp(0.70rem, 0.87rem + -0.29vw, 0.84rem);
+  --step--1: clamp(0.94rem, 0.95rem + -0.01vw, 0.94rem);
+  --step-0: clamp(1.06rem, 1.03rem + 0.13vw, 1.13rem);
+  --step-1: clamp(1.20rem, 1.10rem + 0.37vw, 1.41rem);
+  --step-2: clamp(1.35rem, 1.17rem + 0.71vw, 1.76rem);
 }
 
 /* Base styles */
@@ -68,14 +74,23 @@ h1 {
   font-size: 2.25rem;
   line-height: 2.5rem;
   font-weight: 700;
-  background: linear-gradient(135deg, 
-    hsl(var(--primary)), 
-    hsl(var(--secondary)), 
-    hsl(var(--accent))
+  color: hsl(var(--primary));
+  position: relative;
+  margin: 2rem 0;
+}
+
+h1::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(
+    135deg,
+    hsl(var(--primary)),
+    hsl(var(--secondary))
   );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  margin: 1rem auto 2rem;
+  border-radius: 2px;
 }
 
 @media (min-width: 768px) {

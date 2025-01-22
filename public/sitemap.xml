@@ -1,74 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Homepage - Highest priority -->
   <url>
     <loc>https://yourdomain.com/</loc>
-    <lastmod>2025-01-10</lastmod>
+    <lastmod>2025-01-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
+
+  <!-- Product Pages - High priority -->
   <url>
-    <loc>https://yourdomain.com/about</loc>
-    <lastmod>2025-01-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://yourdomain.com/contact</loc>
-    <lastmod>2025-01-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://yourdomain.com/blog</loc>
-    <lastmod>2025-01-10</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://yourdomain.com/product</loc>
+    <lastmod>2025-01-18</lastmod>
+    <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
+
+  <!-- Category Pages - High priority -->
   <url>
     <loc>https://yourdomain.com/category/lifestyle</loc>
-    <lastmod>2025-01-10</lastmod>
+    <lastmod>2025-01-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://yourdomain.com/category/tech</loc>
-    <lastmod>2025-01-10</lastmod>
+    <lastmod>2025-01-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://yourdomain.com/category/wellness</loc>
-    <lastmod>2025-01-10</lastmod>
+    <lastmod>2025-01-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
+  </url>
+
+  <!-- Blog Section - High priority for SEO -->
+  <url>
+    <loc>https://yourdomain.com/blog</loc>
+    <lastmod>2025-01-18</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- FAQ Page - Important for user support -->
+  <url>
+    <loc>https://yourdomain.com/faq</loc>
+    <lastmod>2025-01-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- About & Contact - Medium priority -->
+  <url>
+    <loc>https://yourdomain.com/about</loc>
+    <lastmod>2025-01-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://yourdomain.com/product</loc>
-    <lastmod>2025-01-10</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
+    <loc>https://yourdomain.com/contact</loc>
+    <lastmod>2025-01-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
+
+  <!-- API Documentation -->
   <url>
     <loc>https://yourdomain.com/api</loc>
-    <lastmod>2025-01-10</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
+    <lastmod>2025-01-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
+
+  <!-- Legal Pages - Lower priority but important -->
   <url>
     <loc>https://yourdomain.com/privacy-policy</loc>
-    <lastmod>2025-01-10</lastmod>
+    <lastmod>2025-01-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://yourdomain.com/terms</loc>
-    <lastmod>2025-01-10</lastmod>
+    <lastmod>2025-01-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://yourdomain.com/disclaimer</loc>
-    <lastmod>2025-01-10</lastmod>
+    <lastmod>2025-01-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
